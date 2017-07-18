@@ -21,10 +21,6 @@ test:
   database: db/test.sqlite3
 
 production:
-  group :development do
-    gem 'sqlite3'
-  end
-
-  group :production do
-    gem 'pg'
-  end
+  adapter: postgresql
+  database: photogur
+  host: localhost

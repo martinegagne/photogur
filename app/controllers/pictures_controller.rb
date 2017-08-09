@@ -2,6 +2,8 @@ class PicturesController < ApplicationController
 
   def index
     @pictures = Picture.all
+    @most_recent_pictures = Picture.most_recent_five
+    @prev_month = Picture.prev_month(1.month.ago)
   end
 
   def show
@@ -15,26 +17,15 @@ class PicturesController < ApplicationController
   def create
     @picture = Picture.new
 
-    @picture.title = params[:picture][:title]
-    @picture.artist = params[:picture][:artist]
-    @picture.url = params[:picture][:url]
-
+    @picture = Picture.new(pictures_params)
 
     if @picture.save
-      # if the picture gets saved, generate a get request to "/pictures" (the index)
       redirect_to "/pictures"
     else
-      # otherwise render new.html.erb
       render :new
     end
   end
 
-  def create
-  end
-
-  def create
-    render text: "Received POST request to '/pictures' with the data URL: #{params}"
-  end
   def edit
     @picture = Picture.find(params[:id])
   end
@@ -42,10 +33,7 @@ class PicturesController < ApplicationController
   def update
     @picture = Picture.find(params[:id])
 
-    @picture.title = params[:picture][:title]
-    @picture.artist = params[:picture][:artist]
-    @picture.url = params[:picture][:url]
-
+    @picture = Picture.new(pictures_params)
 
     if @picture.save
       redirect_to "/pictures/#{@picture.id}"
@@ -60,5 +48,8 @@ class PicturesController < ApplicationController
     redirect_to "/pictures"
   end
 
+  def pictures_params
+  params.require(:picture).permit(:artist, :title, :url)
+  end
 
 end

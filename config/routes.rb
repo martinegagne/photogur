@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root 'pictures#index'
 
   get 'pictures' => 'pictures#index'
@@ -13,5 +13,8 @@ Rails.application.routes.draw do
   patch 'pictures/:id' => "pictures#update"
 
   delete 'pictures/:id' => 'pictures#destroy'
+
+  post 'users' => 'users#create'
+  get 'users/new' => 'users#new'
 
 end

@@ -6,14 +6,27 @@
 <ul>
   <% @most_recent_pictures.each do |picture| %>
   <p><%= picture.title %>, <%= picture.artist %></p>
-  <%= link_to image_tag(picture.url), "/pictures/#{picture.id}" %>
+  <%= link_to image_tag(picture.url, :size => '260x180'), "/pictures/#{picture.id}" %>
   <% end %>
 </ul>
 
 <h1><%=@prev_month.count%> Photos From Over A Month Ago</h1>
 <ul>
   <% @prev_month.each do |picture| %>
-  <p><%= picture.title %>, <%= picture.artist %></p>
-  <%= link_to image_tag(picture.url), "/pictures/#{picture.id}" %>
+  <%= link_to image_tag(picture.url, :size => '260x180'), "/pictures/#{picture.id}" %>
+  <% end %>
+</ul>
+
+<h1>Photos From 2017</h1>
+<ul>
+  <%=@pictures_from_2017.each do |picture| %>
+  <%=link_to image_tag(picture.url, :size => '260x180'), "/pictures/#{picture.id}" %>
+  <% end %>
+</ul>
+
+<h1>Photos From 2016</h1>
+<ul>
+  <%=@pictures_from_2016.each do |picture| %>
+  <%=link_to image_tag(picture.url, :size => '260x180'), "/pictures/#{picture.id}" %>
   <% end %>
 </ul>
